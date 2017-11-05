@@ -1,5 +1,4 @@
-import java.io.File.separator
-import java.util.Collections.copy
+import java.util.Collections.sort
 
 fun main(args: Array<String>) {
     // raw input file
@@ -8,59 +7,44 @@ fun main(args: Array<String>) {
     // comfort definitions
     val file = rawFile.split(",").toSet().map { it.toCharArray() }
     val usedKeys = rawFile.filter { it != ',' }.toList().distinct()
-    val id : (Char) -> Int = {c -> usedKeys.indexOf(c)}
+    val id: (Char) -> Int = { c -> usedKeys.indexOf(c) }
 
 
+    val priorities = (1..usedKeys.size).toMutableList()
 
 
-
-    var result = (1..usedKeys.size).toMutableList()
-
-
-
-//    println(usedKeys)
-
-
-
-    // noob assumption: length = usedKeys.size
-
-    var swapOccured = true
-    while (swapOccured) {
-//        println("iter")
-        swapOccured = false
+    var swapOccurred = true
+    while (swapOccurred) {
+        swapOccurred = false
         for (three in file) {
-            if (result[id(three[0])] > result[id(three[1])]) {
-                val temp = result[id(three[0])]
-                result[id(three[0])] = result[id(three[1])]
-                result[id(three[1])] = temp
-                swapOccured = true
+            if (priorities[id(three[0])] > priorities[id(three[1])]) {
+                val temp = priorities[id(three[0])]
+                priorities[id(three[0])] = priorities[id(three[1])]
+                priorities[id(three[1])] = temp
+                swapOccurred = true
             }
 
-            if (result[id(three[1])] > result[id(three[2])]) {
-                val temp = result[id(three[1])]
-                result[id(three[1])] = result[id(three[2])]
-                result[id(three[2])] = temp
-                swapOccured = true
+            if (priorities[id(three[1])] > priorities[id(three[2])]) {
+                val temp = priorities[id(three[1])]
+                priorities[id(three[1])] = priorities[id(three[2])]
+                priorities[id(three[2])] = temp
+                swapOccurred = true
             }
 
-            if (result[id(three[0])] > result[id(three[2])]) {
-                val temp = result[id(three[0])]
-                result[id(three[0])] = result[id(three[2])]
-                result[id(three[2])] = temp
-                swapOccured = true
+            if (priorities[id(three[0])] > priorities[id(three[2])]) {
+                val temp = priorities[id(three[0])]
+                priorities[id(three[0])] = priorities[id(three[2])]
+                priorities[id(three[2])] = temp
+                swapOccurred = true
             }
         }
     }
 
-    var output = usedKeys.toMutableList()
+    val result = usedKeys.toMutableList()
+    sort(result, { a, b -> priorities[id(a)] - priorities[id(b)] })
 
 
-    //
-    for (c in usedKeys) {
-        println(c + " - " + result[id(c)])
-    }
 
-    println(result[id('3')])
     println("Result: " + result)
 
 
