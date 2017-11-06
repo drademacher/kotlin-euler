@@ -1,7 +1,6 @@
 # https://github.com/JetBrains/kotlin/blob/master/.gitignore
 
 .DS_Store
-.idea/shelf
 /android.tests.dependencies
 /confluence/target
 /dependencies
