@@ -1,8 +1,7 @@
-// wolfram alpha:
-// sum (50 + 1 - 2i choose 2i) for i = 1 to 12
-
 fun main(args: Array<String>) {
-    val result = F(3, 50)
+    val m = 50
+
+    val result = (1..1000).takeWhile { F(m, it) < 1e6 }.last() + 1
     println("Result: " + result)
 }
 
