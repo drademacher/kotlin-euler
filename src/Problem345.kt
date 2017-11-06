@@ -14,8 +14,48 @@ fun main(args: Array<String>) {
     34 124   4 878 450 476 712 914 838 669 875 299 823 329 699
     815 559 813 459 522 788 168 586 966 232 308 833 251 631 107
     813 883 451 509 615  77 281 613 459 205 380 274 302  35 805"""
-            .split("\n").map { it.split(" ").filter { it != "" } }
+            .split("\n").map { it.split(" ").filter { it != "" }.map { it.toInt() } }
+    val size = 15
 
-    println(file.size)
-    println(file[0].size)
+//    val file = """7  53 183 439 863
+//    497 383 563  79 973
+//    287  63 343 169 583
+//    627 343 773 959 943
+//    767 473 103 699 303"""
+//            .split("\n").map { it.split(" ").filter { it != "" }.map { it.toInt() } }
+//    val size = 5
+
+
+
+//    val maxValues = file.map{ it -> it.max()}.requireNoNulls()
+//    val lowerBound = (1..size).map { maxValues.sum() - maxValues.take(it).sum() }
+
+
+    var result = 0
+    val choices = IntArray(size, { 0 } )
+
+    fun backtrack(i : Int) {
+        if (i < size) {
+            (0 until size)
+                    .filter { i == 0 || it !in choices.take(i) }
+                    .forEach({
+//                        if (i > 0) println("" + it + " - " + choices.take(i))
+                        choices[i] = it
+                        backtrack(i+1)
+                    })
+        } else {
+            val x = (0 until size).map { file[it][choices[it]] }.sum()
+            if (x > result) {
+                result = x
+                println(result)
+            }
+        }
+    }
+
+    backtrack(0)
+    println(choices.toList())
+    println("Result: " + result)
+
 }
+
+
