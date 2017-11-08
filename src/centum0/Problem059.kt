@@ -1,3 +1,5 @@
+package centum0
+
 import java.util.Collections.max
 import java.util.Collections.min
 

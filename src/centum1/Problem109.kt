@@ -1,4 +1,4 @@
-
+package centum1
 
 fun main(args: Array<String>) {
     val scores = (1..20).toList() + 25

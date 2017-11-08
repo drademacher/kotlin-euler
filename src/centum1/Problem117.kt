@@ -1,3 +1,7 @@
+package centum1
+
+import binomial
+
 fun main(args: Array<String>) {
     val n = 50
 

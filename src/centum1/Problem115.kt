@@ -1,8 +1,11 @@
-// wolfram alpha:
-// sum (50 + 1 - 2i choose 2i) for i = 1 to 12
+package centum1
+
+import binomial
 
 fun main(args: Array<String>) {
-    val result = F(3, 50)
+    val m = 50
+
+    val result = (1..1000).takeWhile { F(m, it) < 1e6 }.last() + 1
     println("Result: " + result)
 }
 
@@ -12,5 +15,5 @@ private fun F(m : Int, n : Int) : Long {
 }
 
 private fun G(m : Int, n : Int, k : Int) : Long {
-    return binomial(n + 1 - (m-1) * k, 2 * k).toLong()
+    return binomial(n + 1 - (m - 1) * k, 2 * k).toLong()
 }

@@ -1,3 +1,5 @@
+package centum0
+
 fun main(args: Array<String>) {
     val memo = HashMap<Pair<Int, Int>, Int>()
 

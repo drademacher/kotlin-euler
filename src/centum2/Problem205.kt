@@ -1,3 +1,5 @@
+package centum2
+
 fun main(args: Array<String>) {
     val colin = IntArray(37, {0})
     val peter = IntArray(37, {0})

@@ -1,3 +1,5 @@
+package centum0
+
 fun main(args: Array<String>) {
     var result = 0
     (100..999).forEach { i ->
