@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
             x = Math.pow(base.toDouble(), n.toDouble())
 
             if (digits(x) == n) {
-                println("x = $base^$n = $x")
+//                println("x = $base^$n = $x")
                 result += x
             }
         }
