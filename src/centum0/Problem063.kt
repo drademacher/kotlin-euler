@@ -1,7 +1,7 @@
 package centum0
 
 fun main(args: Array<String>) {
-    fun digits(n : Double) = Math.ceil(Math.log10(n)).toInt()
+    fun digits(n: Double) = Math.ceil(Math.log10(n)).toInt()
 
     //  add one for case: 1 = 1^n
     var result = emptyList<Double>()

@@ -10,11 +10,11 @@ fun main(args: Array<String>) {
     println("Result: " + result)
 }
 
-private fun F(m : Int, n : Int) : Long {
-    val maximalNumber: Int = (n+1) / m
+private fun F(m: Int, n: Int): Long {
+    val maximalNumber: Int = (n + 1) / m
     return (0..maximalNumber).map { G(m, n, it) }.sum()
 }
 
-private fun G(m : Int, n : Int, k : Int) : Long {
+private fun G(m: Int, n: Int, k: Int): Long {
     return binomial(n + 1 - (m - 1) * k, 2 * k).toLong()
 }

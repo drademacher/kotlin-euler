@@ -1,8 +1,7 @@
 package centum0
 
 import java.io.File
-import java.util.PriorityQueue
-
+import java.util.*
 
 
 fun main(args: Array<String>) {
@@ -10,14 +9,14 @@ fun main(args: Array<String>) {
     val A = rawFile.split("\n").map { it.split(",").filter { it != "" }.map { it.toInt() } }
 
     // shortest path cost
-    val T = Array(80) { IntArray(80, {Int.MAX_VALUE}) }
+    val T = Array(80) { IntArray(80, { Int.MAX_VALUE }) }
     T[0][0] = A[0][0]
 
     // visited flag
-    val V = Array(80) { BooleanArray(80, {false}) }
+    val V = Array(80) { BooleanArray(80, { false }) }
 
     // frontier
-    val frontier = PriorityQueue<Pair<Int, Int>>(100, {a, b -> T[a.first][a.second] - T[b.first][b.second]})
+    val frontier = PriorityQueue<Pair<Int, Int>>(100, { a, b -> T[a.first][a.second] - T[b.first][b.second] })
     frontier.add(Pair(0, 0))
 
     // processing steps

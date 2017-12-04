@@ -13,14 +13,14 @@ fun main(args: Array<String>) {
     }
 }
 
-fun valid(m : BigInteger) : Boolean {
+fun valid(m: BigInteger): Boolean {
     var n = m
 
     if (n.rem(BigInteger.valueOf(10)) != BigInteger.valueOf(0)) {
         return false
     }
 
-    for (i in 9L downTo 1L)  {
+    for (i in 9L downTo 1L) {
         n /= BigInteger.valueOf(100)
 
         if (n.rem(BigInteger.valueOf(10)) != BigInteger.valueOf(i)) {

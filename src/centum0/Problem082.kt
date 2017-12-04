@@ -1,8 +1,7 @@
 package centum0
 
 import java.io.File
-import java.util.PriorityQueue
-
+import java.util.*
 
 
 fun main(args: Array<String>) {
@@ -14,14 +13,14 @@ fun main(args: Array<String>) {
 
     for (start in 1..79) {
         // shortest path cost
-        val T = Array(80) { IntArray(80, {Int.MAX_VALUE}) }
+        val T = Array(80) { IntArray(80, { Int.MAX_VALUE }) }
         T[start][0] = A[start][0]
 
         // visited flag
-        val V = Array(80) { BooleanArray(80, {false}) }
+        val V = Array(80) { BooleanArray(80, { false }) }
 
         // frontier
-        val frontier = PriorityQueue<Pair<Int, Int>>(100, {a, b -> T[a.first][a.second] - T[b.first][b.second]})
+        val frontier = PriorityQueue<Pair<Int, Int>>(100, { a, b -> T[a.first][a.second] - T[b.first][b.second] })
         frontier.add(Pair(start, 0))
 
         // processing steps

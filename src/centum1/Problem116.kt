@@ -13,6 +13,6 @@ fun main(args: Array<String>) {
     println("Result: " + result)
 }
 
-private fun F(n : Int, t : Int) : Long {
-    return (1..(n/t)).map { binomial(n - (t - 1) * it, it).toLong() }.sum()
+private fun F(n: Int, t: Int): Long {
+    return (1..(n / t)).map { binomial(n - (t - 1) * it, it).toLong() }.sum()
 }

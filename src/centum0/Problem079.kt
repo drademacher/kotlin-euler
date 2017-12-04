@@ -47,7 +47,7 @@ fun main(args: Array<String>) {
 
 
 
-    println("Result: " + result.map{ it.toString() }.reduce { acc , c -> acc + c })
+    println("Result: " + result.map { it.toString() }.reduce { acc, c -> acc + c })
 
 
     // THE ANSWER IS 73162890

@@ -28,25 +28,34 @@ fun main(args: Array<String>) {
 //    val size = 5
 
 
-
 //    val maxValues = file.map{ it -> it.max()}.requireNoNulls()
 //    val lowerBound = (1..size).map { maxValues.sum() - maxValues.take(it).sum() }
 
+    val order = Array(size, { IntArray(size) })
+    for (i in 0 until size) {
+        order[i] = (0 until size)
+                .sortedByDescending { file[i][it] }
+                .toIntArray()
+    }
+//    println(order[1].toList())
+
 
     var result = 0
-    val choices = IntArray(size, { 0 } )
+    val choices = IntArray(size, { 0 })
 
-    fun backtrack(i : Int) {
+    fun backtrack(i: Int) {
         if (i < size) {
             (0 until size)
-                    .filter { i == 0 || it !in choices.take(i) }
+                    .filter { i == 0 || order[i][it] !in choices.take(i) }
                     .forEach({
-//                        if (i > 0) println("" + it + " - " + choices.take(i))
-                        choices[i] = it
-                        backtrack(i+1)
+                        //                        if (i > 0) println("" + it + " - " + choices.take(i))
+                        choices[i] = order[i][it]
+                        backtrack(i + 1)
                     })
         } else {
-            val x = (0 until size).map { file[it][choices[it]] }.sum()
+            val x = (0 until size)
+                    .map { file[it][choices[it]] }
+                    .sum()
             if (x > result) {
                 result = x
                 println(result)
@@ -55,7 +64,7 @@ fun main(args: Array<String>) {
     }
 
     backtrack(0)
-    println(choices.toList())
+//    println(choices.toList())
     println("Result: " + result)
 
 }

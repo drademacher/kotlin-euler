@@ -7,12 +7,12 @@ fun main(args: Array<String>) {
     val prime = getPrimeTester(n)
     val primes = (1..n).filter(prime)
 
-    fun combine(a : Int, b : Int) : Int {
+    fun combine(a: Int, b: Int): Int {
         val digits = Math.ceil(Math.log10(b.toDouble()))
         return a * Math.pow(10.0, digits).toInt() + b
     }
 
-    fun valid(a : Int, b : Int) = prime(combine(a, b)) && prime(combine(b, a))
+    fun valid(a: Int, b: Int) = prime(combine(a, b)) && prime(combine(b, a))
 
     var result = Int.MAX_VALUE
     val cutoff = 10000
@@ -36,7 +36,7 @@ fun main(args: Array<String>) {
         if (a > cutoff || 5 * a > result) break
 
 
-        for (bi in ai+1 until primes.size) {
+        for (bi in ai + 1 until primes.size) {
             val b = primes[bi]
 
 
@@ -49,14 +49,14 @@ fun main(args: Array<String>) {
 
 //            if (a == 13 && b == 5197) println("nice ab")
 
-            for (ci in bi+1 until primes.size) {
+            for (ci in bi + 1 until primes.size) {
                 val c = primes[ci]
                 if (c > cutoff || a + b + 3 * c > result) break
 
                 if (!valid(a, c)) continue
                 if (!valid(b, c)) continue
 
-                for (di in ci+1 until primes.size) {
+                for (di in ci + 1 until primes.size) {
                     val d = primes[di]
 
 
@@ -71,7 +71,7 @@ fun main(args: Array<String>) {
 
 
 
-                    for (ei in di+1 until primes.size) {
+                    for (ei in di + 1 until primes.size) {
                         val e = primes[ei]
 
 
@@ -87,7 +87,7 @@ fun main(args: Array<String>) {
                         if (!valid(d, e)) continue
 
 //                        println("Result: ${a+b+c+d+e}")
-                        result = minOf(result, a+b+c+d+e)
+                        result = minOf(result, a + b + c + d + e)
 //                            return
                     }
                 }

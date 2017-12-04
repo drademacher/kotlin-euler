@@ -1,20 +1,15 @@
 package centum0
 
+import memoize
+
 fun main(args: Array<String>) {
-    val memo = HashMap<Pair<Int, Int>, Int>()
-
-    fun backtrack(n: Int, upper: Int): Int {
+    var backtrack: (Int, Int) -> Int = { _, _ -> 0 }
+    backtrack = { n: Int, upper: Int ->
         if (n == 0) {
-            return 1
+            1
+        } else {
+            (1..minOf(n, upper)).sumBy { backtrack(n - it, minOf(upper, it)) }
         }
-
-        if (Pair(n, upper) in memo) {
-            return memo[Pair(n, upper)]!!
-        }
-        val result = (1..minOf(n, upper)).sumBy { backtrack(n - it, minOf(upper, it)) }
-        memo[Pair(n, upper)] = result
-        return result
-    }
-
+    }.memoize()
     println("Return: " + backtrack(100, 99))
 }
