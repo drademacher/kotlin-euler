@@ -2,14 +2,16 @@ package centum1
 
 import getPrimeTester
 
+// computes result = 4939993641022
+
 fun main(args: Array<String>) {
-    val n = 5e4.toInt() + 3 // the +5 gives us one more prime after 1e6
+    val n = 1e6.toInt() + 3 // the +5 gives us one more prime after 1e6
     val prime = getPrimeTester(n)
     val primes = (5..n).filter(prime)
 
 
     println("size = ${primes.size}")
-    var result = 0
+    var result = 0L
 
     for (i in 0..primes.size - 2)
 //    val i = 5

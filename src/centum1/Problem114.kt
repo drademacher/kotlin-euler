@@ -3,7 +3,7 @@ package centum1
 import binomial
 
 // wolfram alpha:
-// sum (50 + 1 - 2i choose 2i) for i = 1 to 12
+// sum (50 + 1 - 2i choose 2i) for i = 0 to 12
 
 fun main(args: Array<String>) {
     val result = F(3, 50)
