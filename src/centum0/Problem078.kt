@@ -1,17 +1,21 @@
 package centum0
 
 fun main(args: Array<String>) {
-    val memo = HashMap<Pair<Int, Int>, Int>()
+    val memo = HashMap<Pair<Int, Int>, Long>()
 
-    fun backtrack(n: Int, upper: Int): Int {
+    fun backtrack(n: Int, upper: Int): Long {
         if (n == 0) {
             return 1
+        }
+
+        if (upper > n) {
+            return backtrack(n, n)
         }
 
         if (Pair(n, upper) in memo) {
             return memo[Pair(n, upper)]!!
         }
-        val result = (1..minOf(n, upper)).sumBy { backtrack(n - it, minOf(upper, it)) }
+        val result = (1..minOf(n, upper)).map { backtrack(n - it, minOf(upper, it)) }.sum()
         memo[Pair(n, upper)] = result
         return result
     }
@@ -27,12 +31,16 @@ fun main(args: Array<String>) {
         return binarySearch(n, min, mid - 1)
     }
 
-    val million = 1L
 
-    var low = 1L
-    val high = million * 100
 
-    println("res ${partitions(high)}")
+    for (i in 1L..Long.MAX_VALUE) {
+        val value = partitions(i)
+        if (value % 1000 == 0L) {
+            println("$i: $value")
+        }
+
+    }
+
 
 //
 //

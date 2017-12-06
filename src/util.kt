@@ -44,6 +44,33 @@ fun <T1, T2, R> Collection<T1>.combine(other: Iterable<T2>, transformer: (thisIt
 }
 
 
+fun gcd(s: Int, t: Int): Int {
+    var a = s
+    var b = t
+    var c: Int
+    while (b != 0) {
+        c = a
+        a = b
+        b = c % b
+    }
+
+    return a
+}
+
+
+fun gcd(s: Long, t: Long): Long {
+    var a = s
+    var b = t
+    var c: Long
+    while (b != 0L) {
+        c = a
+        a = b
+        b = c % b
+    }
+
+    return a
+}
+
 
 
 

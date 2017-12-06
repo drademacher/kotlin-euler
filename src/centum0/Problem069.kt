@@ -1,9 +1,10 @@
-package centum2
+package centum0
 
 import getPrimeTester
 
+// INFO: easy solution is to find biggest product < n of the first n primes, but that is boring in terms of computations :-)
 fun main(args: Array<String>) {
-    val n = 1e6.toInt()
+    val n = 1000000
     val prime = getPrimeTester(n)
     val primes = (1..n).filter(prime)
 
@@ -16,8 +17,9 @@ fun main(args: Array<String>) {
         }
     }
 
-    val result = (2..n)
-            .map { phi[it].toLong() }
-            .sum()
+    val result = (2 until n)
+            .map { Pair(it, it.toDouble() / phi[it].toDouble()) }
+            .maxBy { it.second }!!
+            .first
     println("Result: $result")
 }

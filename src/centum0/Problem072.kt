@@ -1,4 +1,4 @@
-package centum2
+package centum0
 
 import getPrimeTester
 

@@ -8,7 +8,7 @@ fun main(args: Array<String>) {
 
     val n = 1000000000000
 
-    for (i in len .. n) {
+    for (i in len..n) {
         var ind = (i % len).toInt()
         lagged[ind] = (lagged[(ind + len - 1) % len] + lagged[(ind + len - 2) % len]) % mod
 //        println(lagged.toList())

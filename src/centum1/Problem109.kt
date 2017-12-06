@@ -1,17 +1,30 @@
 package centum1
 
 fun main(args: Array<String>) {
-    val scores = (1..20).toList() + 25
-    val outs = scores.map { 2 * it }
-    val darts = scores + scores.map { 2 * it } + (1..20).map { 3 * it }
+    val n = 99
+    val singles = (1..20).toList() + 25
+    val doubles = singles.map { 2 * it }
+    val trebles = (1..20).map { 3 * it }
+    val darts = singles + doubles + trebles
 
     var result = 0
 
-    result += outs.size
+    // outs with 1 dart
+    result += doubles.size
 
-    for (fst in 0 until 62) {
-        result += outs.filter { darts[fst] + it < 100 }.size
-        result += (fst until 62).sumBy { snd -> outs.filter { darts[fst] + darts[snd] + it < 100 }.size }
+    for (fst in 0 until darts.size) {
+        // outs with 2 darts
+        result += doubles
+                .filter { darts[fst] + it <= n }
+                .size
+
+        // outs with 3 darts
+        for (snd in fst until darts.size) {
+            result += doubles
+                    .filter { darts[fst] + darts[snd] + it <= 99 }
+                    .size
+        }
+
     }
 
     println("Result: $result")

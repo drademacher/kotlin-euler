@@ -4,13 +4,19 @@ import binomial
 
 fun main(args: Array<String>) {
     val poss = (2..7).map { computePossibilities(it) }
-    val expected = poss.zip((2..7)).map { pair -> pair.second * pair.first }.sum().toDouble() / poss.sum()
+    val expected = poss
+            .zip((2..7))
+            .map { pair -> pair.second * pair.first }
+            .sum().toDouble() / poss.sum()
 
     println("Result: $expected")
 
 //    println("Res: " + )
 }
 
+/***
+ * compute the number of possibilities to draw k many different colors
+ */
 private fun computePossibilities(balls: Int): Long {
     var result = 0L
     val current = arrayOf(0, 0, 0, 0, 0, 0, 0)

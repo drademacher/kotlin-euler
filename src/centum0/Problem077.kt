@@ -14,6 +14,10 @@ fun main(args: Array<String>) {
             return 1
         }
 
+        if (upper > n) {
+            return backtrack(n, n)
+        }
+
         if (Pair(n, upper) in memo) {
             return memo[Pair(n, upper)]!!
         }
