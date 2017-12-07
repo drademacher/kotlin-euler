@@ -3,19 +3,15 @@ package centum2
 import combine
 import memoize
 
-
-// res: 806844323190414
-// solved with wolfram alpha
-
 fun main(args: Array<String>) {
 
-    val width = 9
-    val height = 3
+    val width = 32
+    val height = 10
 
     val x = (0..width / 2).toList().combine((0..width / 3))
             .filter { pair -> 2 * pair.first + 3 * pair.second == width }
 
-    print(x)
+//    print(x)
 
 
     fun binary(n: Int) = (Math.pow(2.0, n.toDouble()).toInt() until Math.pow(2.0, (n + 1).toDouble()).toInt())
@@ -36,7 +32,6 @@ fun main(args: Array<String>) {
     val poss = Array(m, { IntArray(0) })
     for (i in 0 until m) {
         poss[i] = (0 until m).filter { y[i].intersect(y[it]).isEmpty() }.toIntArray()
-//        println(poss[i].toList())
     }
 
 

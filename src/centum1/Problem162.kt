@@ -1,31 +1,57 @@
 package centum1
 
 import binomial
+import java.math.BigInteger
 
 fun main(args: Array<String>) {
+    val state = IntArray(16, { 0 })
 
-    println(binomial(3, 2).toLong() * 2 * 16 - binomial(3, 2).toLong() * 2 * 2)
-
-    fun combinations(digits: Int) = 2 * binomial(digits - 1, 2).toLong() * 2 * 16 + 13 * binomial(digits - 1, 3).toLong() * 6
-
-
-    // binomial(digits, 3).toLong()  * 4 * maxOf(1, Math.pow(16.0, digits - 3.0).toLong())
-
-    val res = (3..16).map { combinations(it) }.sum()
-//
-//    println("4: ${combinations(4)}")
-//
-//    println("Result: ${java.lang.Long.toHexString(res).toUpperCase()}")
-
-    val strs = (4096..65535)
-            .map { java.lang.Integer.toHexString(it) }
-            .filter { '0' in it && '1' in it && 'a' in it }
-            .filter { it[0] == 'a' && it[1] == '1' }
-    println("strs: " + strs.count())
-
-//        println(s)
+    fun stateCombinations(): BigInteger {
+        state[0] += 1
+        state[1] += 1
+        state[10] += 1
 
 
-//    val lst = (2 until n) + 2
-//    println(lst.reduce { acc, i -> acc * i })
+        var left = state.sum()
+        var result = binomial(left - 1, state[0])
+        left -= state[0]
+
+        for (i in 1 until 16) {
+            result *= binomial(left, state[i])
+            left -= state[i]
+        }
+
+        state[0] -= 1
+        state[1] -= 1
+        state[10] -= 1
+
+        return result
+    }
+
+    fun backtrack(n: Int, m: Int): BigInteger {
+        return if (m == 0 || n == 15) {
+            state[15] = m
+            val result = stateCombinations()
+            state[15] = 0
+            result
+        } else {
+            var result = BigInteger.ZERO
+            for (k in 0..m) {
+                state[n] += k
+                result += backtrack(n + 1, m - k)
+                state[n] -= k
+            }
+            result
+        }
+    }
+
+    // faster solution, interested if that also works
+//    val result = (3..16)
+//            .map { BigInteger.valueOf(15) * BigInteger.valueOf(16).pow(it-1) + BigInteger.valueOf(41) * BigInteger.valueOf(14).pow(it-1) - BigInteger.valueOf(43) * BigInteger.valueOf(15).pow(it-1) - BigInteger.valueOf(13).pow(it) }
+//            .reduce { acc, bigInteger -> acc+bigInteger }
+
+    val result = (3..16)
+            .map { backtrack(0, it-3) }
+            .reduce { acc, bigInteger -> acc+bigInteger }
+    println("Result: ${java.lang.Long.toHexString(result.toLong()).toUpperCase()}")
 }

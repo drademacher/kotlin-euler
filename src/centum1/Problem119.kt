@@ -4,30 +4,16 @@ import java.math.BigInteger
 import kotlin.math.log
 
 fun main(args: Array<String>) {
-//    println(termOfSequence(512))
-//    println(sumOfDigits(512))
-//    println(log(512.toDouble(), sumOfDigits(512).toDouble()))
-//    println(termOfSequence(614656 ))
-
 
     val solutions = HashSet<Long>()
     for (base in 2L..1000) {
-        for (expo in 2..20) {
-            val i = BigInteger.valueOf(base).pow(expo).toLong()
-            if (i > 9 && termOfSequence(i)) {
-                solutions.add(i)
-//            println(log10(i.toDouble()) / log10(sumOfDigits(i).toDouble()))
-//            println(sumOfDigits(i))
-            }
-        }
+        (2..20)
+                .map { BigInteger.valueOf(base).pow(it).toLong() }
+                .filterTo(solutions) { it > 9 && termOfSequence(it) }
     }
 
-    solutions
-            .sorted()
-            .forEachIndexed { index, l ->
-                println("${index + 1}: $l")
-            }
-
+    val result = solutions.sorted()[29]
+    println("Result: $result")
 }
 
 private fun termOfSequence(n: Long): Boolean {
