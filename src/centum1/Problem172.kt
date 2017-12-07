@@ -4,22 +4,38 @@ import binomial
 import java.math.BigInteger
 
 fun main(args: Array<String>) {
-    val eighteenDigits = int(9) * int(10).pow(17)
-    val result = eighteenDigits - (4..17).map { hasKZeros(it) }.reduce { acc, bigInteger -> acc + bigInteger } - (4..18).map { int(9) * hasKFixedNonzeros(it) }.reduce { acc, bigInteger -> acc + bigInteger }
-    println("Result: $result")
+    val state = IntArray(10, { 0 })
 
-    println(hasKFixedNonzeros(17))
-}
+    fun stateCombinations(): BigInteger {
+        var left = state.sum()
+        var result = binomial(left - 1, state[0])
+        left -= state[0]
 
-private fun int(n : Long) = BigInteger.valueOf(n)
+        for (i in 1 until 10) {
+            result *= binomial(left, state[i])
+            left -= state[i]
+        }
 
-private fun hasKZeros(k : Int) : BigInteger {
-    return binomial(17, k) * int(9).pow(18-k)
-}
-
-private fun hasKFixedNonzeros(k : Int) : BigInteger {
-    if (k == 18) {
-        return int(1)
+        return result
     }
-    return binomial(17, k-1) * int(9).pow(18-k) + binomial(17, k) * int(8) * int(9).pow(17-k)
+
+    fun backtrack(n: Int, m: Int): BigInteger {
+        return if (m == 0) {
+            val result = stateCombinations()
+            result
+        } else if (n == 10) {
+            BigInteger.ZERO
+        } else {
+            var result = BigInteger.ZERO
+            for (k in 0..3) {
+                state[n] += k
+                result += backtrack(n + 1, m - k)
+                state[n] -= k
+            }
+            result
+        }
+    }
+
+    val result = backtrack(0, 18)
+    println("Result: $result")
 }
