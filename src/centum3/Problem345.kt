@@ -18,26 +18,16 @@ fun main(args: Array<String>) {
     813 883 451 509 615  77 281 613 459 205 380 274 302  35 805"""
             .split("\n").map { it.split(" ").filter { it != "" }.map { it.toInt() } }
     val size = 15
+    val cut = 6
 
-//    val file = """7  53 183 439 863
-//    497 383 563  79 973
-//    287  63 343 169 583
-//    627 343 773 959 943
-//    767 473 103 699 303"""
-//            .split("\n").map { it.split(" ").filter { it != "" }.map { it.toInt() } }
-//    val size = 5
-
-
-//    val maxValues = file.map{ it -> it.max()}.requireNoNulls()
-//    val lowerBound = (1..size).map { maxValues.sum() - maxValues.take(it).sum() }
 
     val order = Array(size, { IntArray(size) })
     for (i in 0 until size) {
         order[i] = (0 until size)
                 .sortedByDescending { file[i][it] }
+                .take(cut)
                 .toIntArray()
     }
-//    println(order[1].toList())
 
 
     var result = 0
@@ -45,10 +35,9 @@ fun main(args: Array<String>) {
 
     fun backtrack(i: Int) {
         if (i < size) {
-            (0 until size)
+            (0 until cut)
                     .filter { i == 0 || order[i][it] !in choices.take(i) }
                     .forEach({
-                        //                        if (i > 0) println("" + it + " - " + choices.take(i))
                         choices[i] = order[i][it]
                         backtrack(i + 1)
                     })
@@ -58,13 +47,12 @@ fun main(args: Array<String>) {
                     .sum()
             if (x > result) {
                 result = x
-                println(result)
             }
         }
     }
-
     backtrack(0)
-//    println(choices.toList())
+
+
     println("Result: " + result)
 
 }
